@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,11 @@ Route::middleware('web', 'auth')->group(function () {
         Route::get('/', [UploadController::class, 'index'])->name('upload.index');
         Route::post('/upload-file', [UploadController::class, 'upload'])->name('upload.upload');
         Route::delete('/delete/{id}', [UploadController::class, 'destroy'])->name('upload.delete');
-        Route::get('/edit/{id}', [UploadController::class, 'edit'])->name('upload.edit');
         Route::post('/update/{id}', [UploadController::class, 'update'])->name('upload.update');
-        Route::get('/show/{id}', [UploadController::class, 'show'])->name('upload.show');
+    });
+
+    Route::prefix('history')->group(function () {
+        Route::get('/', [ContentController::class, 'index'])->name('history.index');
+        Route::get('/get', [ContentController::class, 'get'])->name('history.get');
     });
 });

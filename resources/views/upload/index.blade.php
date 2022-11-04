@@ -4,6 +4,10 @@
 
 @section('breadcrumb')
     <h2 class="main-content-title tx-24 mg-b-5">Upload File</h2>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Upload file</li>
+    </ol>
 @endsection
 @section('content')
     <div class="row row-sm">
@@ -30,15 +34,21 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="phone"
-                                                       value="{{ old('phone', $item[0]) }}" @error('phone') is-invalid @enderror/>
+                                                <input type="text" class="form-control" name="phone" value="{{ old('phone', $item[0]) }}" />
                                             </div>
+                                            @error('phone')
+                                                {!! admin_validation($message) !!}
+                                            @enderror
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="message"
-                                                       value="{{ old('message', $item[1]) }}" @error('message') is-invalid @enderror/>
+                                                <textarea type="text" class="form-control" name="message">
+                                                    {{ old('message', $item[1]) }}
+                                                </textarea>
                                             </div>
+                                            @error('message')
+                                                {!! admin_validation($message) !!}
+                                            @enderror
                                         </td>
                                         <td>
                                             <div class="flex-row">
@@ -56,7 +66,9 @@
                             @endif
                             </tbody>
                         </table>
-                        <button id="save" type="submit" class="btn btn-primary">Submit to send message</button>
+                        @if ($data)
+                            <button id="save" type="submit" class="btn btn-primary">Submit to send message</button>
+                        @endif
                     </form>
                 </div>
             </div>

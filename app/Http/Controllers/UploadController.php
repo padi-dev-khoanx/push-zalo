@@ -10,6 +10,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UploadController extends Controller
 {
+    private $data = [];
+
+    public function __construct()
+    {
+        $this->data['menu_active'] = 'upload';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +24,7 @@ class UploadController extends Controller
      */
     public function index()
     {
+        $data = $this->data;
         $data['data'] = [];
 
         return view('upload.index', $data);
@@ -30,9 +38,9 @@ class UploadController extends Controller
      */
     public function upload(UploadRequest $request)
     {
-
         $content = Excel::toArray(new UploadFile, request()->file('file'));
 
+        $data = $this->data;
         $data['data'] = $content[0];
 
         return view('upload.index', $data);

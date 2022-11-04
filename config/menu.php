@@ -15,4 +15,11 @@ return [
         'roles' => ['upload'],
         'route' => 'upload.index',
     ],
+    [
+        'name' => 'History',
+        'icon' => 'ti-bar-chart-alt',
+        'has_sub_menu' => false,
+        'roles' => ['history'],
+        'route' => 'history.index',
+    ],
 ];

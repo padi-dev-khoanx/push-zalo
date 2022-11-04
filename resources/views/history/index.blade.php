@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'List of Content')
+@section('title', 'List of upload history')
 
 @section('breadcrumb')
     <h2 class="main-content-title tx-24 mg-b-5">List of upload history</h2>

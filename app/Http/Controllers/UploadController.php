@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UploadRequest;
+use App\Jobs\PushZaloJob;
 use App\Upload\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,6 +25,8 @@ class UploadController extends Controller
      */
     public function index()
     {
+        $this->data['menu_active'] = 'upload';
+
         $data = $this->data;
         $data['data'] = [];
 
@@ -38,34 +41,14 @@ class UploadController extends Controller
      */
     public function upload(UploadRequest $request)
     {
+        $this->data['menu_active'] = 'preview';
+
         $content = Excel::toArray(new UploadFile, request()->file('file'));
 
         $data = $this->data;
         $data['data'] = $content[0];
 
-        return view('upload.index', $data);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('upload.preview', $data);
     }
 
     /**
@@ -75,19 +58,18 @@ class UploadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function send(Request $request)
     {
-        //
+        $input = $request->all();
+
+        for ($i = 0; $i < sizeof($input['phone']); $i++) {
+            $data[$i]['phone'] = $input['phone'][$i];
+            $data[$i]['message'] = $input['message'][$i];
+        }
+
+        $pushZaloJob = new PushZaloJob($data);
+        dispatch($pushZaloJob)->delay(now()->addMinute(1));
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -17,10 +17,11 @@ class CreateContentsTable extends Migration
             $table->id();
             $table->string('phone');
             $table->longText('message');
+            $table->string('response_sent_time');
+            $table->string('response_msg_id');
+            $table->text('response_error');
+            $table->text('response_message');
             $table->timestamps();
-            // extend
-            $table->unsignedInteger('updated_by')->default(0);
-            $table->integer('version')->default(0);
         });
     }
 

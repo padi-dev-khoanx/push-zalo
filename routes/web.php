@@ -27,9 +27,8 @@ Route::middleware('web', 'auth')->group(function () {
 
     Route::prefix('upload')->group(function () {
         Route::get('/', [UploadController::class, 'index'])->name('upload.index');
-        Route::post('/upload-file', [UploadController::class, 'upload'])->name('upload.upload');
-        Route::delete('/delete/{id}', [UploadController::class, 'destroy'])->name('upload.delete');
-        Route::post('/update/{id}', [UploadController::class, 'update'])->name('upload.update');
+        Route::post('/preview', [UploadController::class, 'upload'])->name('upload.preview');
+        Route::post('/send-message', [UploadController::class, 'send'])->name('upload.send');
     });
 
     Route::prefix('history')->group(function () {

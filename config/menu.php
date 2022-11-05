@@ -9,14 +9,21 @@ return [
         'route' => 'dashboard',
     ],
     [
-        'name' => 'Upload File',
+        'name' => 'Tải lên file',
         'icon' => 'ti-bar-chart-alt',
         'has_sub_menu' => false,
         'roles' => ['upload'],
         'route' => 'upload.index',
     ],
     [
-        'name' => 'History',
+        'name' => 'Xem nội dung tải lên',
+        'icon' => 'ti-bar-chart-alt',
+        'has_sub_menu' => false,
+        'roles' => ['preview'],
+        'route' => 'upload.preview',
+    ],
+    [
+        'name' => 'Lịch sử',
         'icon' => 'ti-bar-chart-alt',
         'has_sub_menu' => false,
         'roles' => ['history'],

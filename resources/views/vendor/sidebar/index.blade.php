@@ -2,7 +2,7 @@
     <ul class="nav">
         @foreach ($menus as $menu)
             <li class="{{ in_array($menu_active, $menu['roles']) ? 'active': '' }} nav-item">
-                <a class="nav-link {{ $menu['has_sub_menu'] ? 'with-sub' : '' }}" href="{{ $menu['has_sub_menu'] ? 'javaScript:void(0);' : route($menu['route']) }}">
+                <a class="nav-link {{ $menu['has_sub_menu'] ? 'with-sub' : '' }}" href="{{ $menu['has_sub_menu'] || $menu['roles'] == ['preview'] ? 'javaScript:void(0);' : route($menu['route']) }}">
                     <span class="shape1"></span>
                     <span class="shape2"></span>
                     <i class="{{ $menu['icon'] }} sidemenu-icon"></i>

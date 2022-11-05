@@ -15,6 +15,6 @@ class DBContentRepository extends DBRepository implements ContentRepository
 
     public function queryHistory()
     {
-        return $this->model->query();
+        return $this->model->orderBy('response_sent_time', 'desc');
     }
 }

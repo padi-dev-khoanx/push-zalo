@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UploadRequest;
 use App\Jobs\PushZaloJob;
 use App\Upload\UploadFile;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UploadController extends Controller
@@ -21,7 +23,7 @@ class UploadController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,13 +35,18 @@ class UploadController extends Controller
         return view('upload.index', $data);
     }
 
+    public function uploadIndex()
+    {
+        return Redirect::route('upload.index');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param UploadRequest $request
      * @return Response
      */
-    public function upload(UploadRequest $request)
+    public function preview(UploadRequest $request)
     {
         $this->data['menu_active'] = 'preview';
 
@@ -54,9 +61,8 @@ class UploadController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function send(Request $request)
     {
@@ -70,6 +76,7 @@ class UploadController extends Controller
         $pushZaloJob = new PushZaloJob($data);
         dispatch($pushZaloJob)->delay(now()->addMinute(1));
 
+        return Redirect::route('upload.index')->with('notice_success', 'Đã gửi tin nhắn thành công!');
     }
 
 }

@@ -18,7 +18,8 @@
         "laravel/ui": "^2.0",
         "maatwebsite/excel": "^3.0.1",
         "yajra/laravel-datatables-oracle": "^9.20",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

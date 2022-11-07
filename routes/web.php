@@ -27,7 +27,8 @@ Route::middleware('web', 'auth')->group(function () {
 
     Route::prefix('upload')->group(function () {
         Route::get('/', [UploadController::class, 'index'])->name('upload.index');
-        Route::post('/preview', [UploadController::class, 'upload'])->name('upload.preview');
+        Route::get('/preview', [UploadController::class, 'uploadIndex'])->name('upload.preview.get');
+        Route::post('/preview', [UploadController::class, 'preview'])->name('upload.preview');
         Route::post('/send-message', [UploadController::class, 'send'])->name('upload.send');
     });
 

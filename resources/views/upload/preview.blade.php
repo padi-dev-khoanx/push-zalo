@@ -21,15 +21,17 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Số điện thoại</th>
-                                    <th>Tin nhắn</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Tên cơ sở</th>
+                                    <th>Thời gian</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @if ($data)
-                                @foreach ($data as $item)
+                                @foreach ($data as $key => $item)
                                     <tr>
                                         <td>
-                                            {{ $loop->index + 1 }}
+                                            {{ $key + 1 }}
                                         </td>
                                         <td>
                                             <div class="form-group">
@@ -38,7 +40,17 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <textarea type="text" class="form-control" name="message[]">{{ $item[1] }}</textarea>
+                                                <textarea type="text" class="form-control" name="customer_name[]">{{ $item[1] }}</textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <textarea type="text" class="form-control" name="ten_co_so[]">{{ $item[2] }}</textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <textarea type="text" class="form-control" name="thoigan[]">{{ $item[3] }}</textarea>
                                             </div>
                                         </td>
                                     </tr>

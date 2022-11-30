@@ -67,10 +67,14 @@ class UploadController extends Controller
     public function send(Request $request)
     {
         $input = $request->all();
+        $data = [];
 
-        for ($i = 0; $i < sizeof($input['phone']); $i++) {
-            $data[$i]['phone'] = $input['phone'][$i];
-            $data[$i]['message'] = $input['message'][$i];
+        foreach ($input['phone'] as $key => $phone) {
+            $data[$key]['phone'] = $phone;
+            $data[$key]['ten_co_so'] = $input['ten_co_so'][$key];
+            $data[$key]['customer_name'] = $input['customer_name'][$key];
+            $data[$key]['ma_don_hang'] = rand(1000, 9999);
+            $data[$key]['thoigan'] = $input['thoigan'][$key];
         }
 
         $pushZaloJob = new PushZaloJob($data);

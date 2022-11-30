@@ -40,9 +40,13 @@ class PushZaloJob implements ShouldQueue
 
         // xử lý foreach các item call api và lưu vào DB kết quả trả về
         foreach ($this->data as $item) {
-            if ($this->data['phone']) {
+//            dd($item);
+            if ($item['phone']) {
                 $client = new Client([
-                    'headers' => ['Content-Type' => 'application/json']
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'access_token' => 'vlIDVzLwm5Zgz89qs7RDMU7rWNZVOQnTfUcDCk8fXaQgqQiR-2svMQNJz2AVHBPefuJ-Fjraob-pxySOY2BBVhFmvI7F6V43di_18QG6-t7RsiGdu52E1g2BXqFyTvWxjFgtPTXthpgMcu5RsbQp78lSd5lBDROKY-IWGxbfgW_bW-4ecWp3Uk64xLsoRjSQy9tdRf9EsXN-ki94ZsRFQFNhzWscAzShpgBQJgXrwMlwegOee4sNSyQ2hYELGgLboRAKE_PujNUYXBG6cKsTM-FQiH7OJRrrlw-5DmkwUnNPOCTT'
+                    ],
                 ]);
 
                 $url = 'https://business.openapi.zalo.me/message/template';
@@ -50,18 +54,13 @@ class PushZaloJob implements ShouldQueue
                 $body = json_encode(
                     [
                         "mode" => "development",
-                        "phone" => "84987654321",
-                        "template_id" => "7895417a7d3f9461cd2e",
+                        "phone" => '84975275297',
+                        "template_id" => "239437",
                         "template_data" => [
-                            "ky" => "1",
-                            "thang" => "4/2020",
-                            "start_date" => "20/03/2020",
-                            "end_date" => "20/04/2020",
-                            "customer" => "Nguyễn Thị Hoàng Anh",
-                            "cid" => "PE010299485",
-                            "address" => "VNG Campus, TP.HCM",
-                            "amount" => "100",
-                            "total" => "100000",
+                            "ten_co_so" => $item['ten_co_so'],
+                            "customer_name" => $item['customer_name'],
+                            "ma_don_hang" => $item['ma_don_hang'],
+                            "thoigan" => $item['thoigan'],
                         ],
                         "tracking_id" => "tracking_id",
                     ]);
